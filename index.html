@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fernando Da Cruz Oliveira — Supply Chain & Operations Transformation</title>
+<meta name="description" content="Especialista Sênior em Supply Chain, Operações e Transformação Logística. 18+ anos transformando operações orientadas por dados. Lean Six Sigma Black Belt.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200;12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Libs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/lenis@1.3.23/dist/lenis.css">
+<script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<style>
+:root {
+  --bg: #0A0E14;
+  --bg-elevated: #111722;
+  --surface: #182030;
+  --text: #EAEEF2;
+  --muted: #7C899B;
+  --accent: #00E5A0;
+  --accent-2: #3B82F6;
+  --hairline: rgba(124,137,155,0.18);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent); color: var(--bg); }
+
+h1, h2, h3, .display {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+img {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--bg-elevated) 100%);
+  min-height: 100px;
+  display: block;
+  max-width: 100%;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.wrap { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+@media (min-width: 1024px) { .wrap { padding: 0 48px; } }
+
+section { padding-block: 64px; position: relative; }
+@media (min-width: 768px) { section { padding-block: 100px; } }
+@media (min-width: 1024px) { section { padding-block: 150px; } }
+
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--accent);
+  display: inline-block;
+}
+
+/* ============ NAV ============ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 0;
+  transition: background 0.4s ease, padding 0.4s ease, border-color 0.4s ease;
+  border-bottom: 1px solid transparent;
+}
+nav.scrolled {
+  background: rgba(10,14,20,0.82);
+  backdrop-filter: blur(14px);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; }
+.logo {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: -0.03em;
+  display: flex; align-items: center; gap: 10px;
+}
+.logo .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.nav-links { display: none; gap: 38px; align-items: center; }
+@media (min-width: 900px) { .nav-links { display: flex; } }
+.nav-links a {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  position: relative;
+  transition: color 0.3s ease;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -6px;
+  width: 0; height: 1px;
+  background: var(--accent);
+  transition: width 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { width: 100%; }
+
+.burger {
+  display: flex; flex-direction: column; gap: 5px;
+  cursor: pointer; background: none; border: none; padding: 8px;
+}
+@media (min-width: 900px) { .burger { display: none; } }
+.burger span { width: 24px; height: 2px; background: var(--text); transition: transform 0.3s, opacity 0.3s; }
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  transform: translateY(-100%);
+  transition: transform 0.6s cubic-bezier(0.76,0,0.24,1);
+}
+.mobile-menu.open { transform: translateY(0); }
+.mobile-menu a {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.mobile-menu a:hover { color: var(--accent); }
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 100px;
+  padding-bottom: 60px;
+  position: relative;
+}
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.hero .wrap { position: relative; z-index: 2; width: 100%; }
+.hero-grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+@media (min-width: 1024px) { .hero-grid { grid-template-columns: 1.15fr 0.85fr; gap: 60px; } }
+
+.hero-text h1 {
+  font-size: clamp(2.4rem, 6.5vw, 5.2rem);
+  font-weight: 800;
+  margin-bottom: 28px;
+}
+.hero-text h1 .light { font-weight: 200; color: var(--muted); }
+.hero-text h1 .accent { color: var(--accent); }
+.hero-role {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  margin-bottom: 24px;
+  display: block;
+}
+.hero-text p {
+  color: var(--muted);
+  font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+  max-width: 540px;
+  margin-bottom: 40px;
+}
+.hero-loc {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 0.78rem; color: var(--muted);
+  letter-spacing: 0.06em; margin-bottom: 16px;
+}
+
+.hero-cta { display: flex; flex-wrap: wrap; gap: 16px; }
+
+.btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 16px 30px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  display: inline-flex; align-items: center; gap: 10px;
+  border: 1px solid transparent;
+}
+.btn-primary { background: var(--accent); color: var(--bg); font-weight: 500; }
+.btn-primary:hover { transform: translateY(-2px); background: #16f5b0; }
+.btn-ghost { background: transparent; color: var(--text); border-color: var(--hairline); }
+.btn-ghost:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--accent); }
+
+.hero-stats-row {
+  display: flex; flex-wrap: wrap; gap: 32px;
+  margin-top: 56px; padding-top: 36px;
+  border-top: 1px solid var(--hairline);
+}
+.hero-stat .n {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800; color: var(--text);
+}
+.hero-stat .n span { color: var(--accent); }
+.hero-stat .l { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+
+/* ============ SOBRE ============ */
+.about-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
+@media (min-width: 1024px) { .about-grid { grid-template-columns: 0.9fr 1.1fr; gap: 80px; } }
+.about h2 {
+  font-size: clamp(1.9rem, 4.5vw, 3.4rem);
+  font-weight: 700; margin-bottom: 32px;
+}
+.about h2 .accent { color: var(--accent); }
+.about-body p { color: var(--muted); margin-bottom: 22px; font-size: 1rem; }
+.about-body p strong { color: var(--text); font-weight: 500; }
+.about-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+.tag {
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 8px 16px; border: 1px solid var(--hairline); border-radius: 100px;
+  color: var(--muted); transition: border-color 0.3s, color 0.3s;
+}
+.tag:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ============ RESULTADOS (PINNED) ============ */
+.results { background: var(--bg-elevated); }
+.results-pin { min-height: 100vh; display: flex; align-items: center; }
+.results-head { text-align: center; margin-bottom: 0; }
+.results-head h2 {
+  font-size: clamp(2rem, 5.5vw, 4.5rem); font-weight: 800;
+}
+.results-head h2 .accent { color: var(--accent); }
+.results-head p { color: var(--muted); max-width: 540px; margin: 24px auto 0; }
+
+.metrics-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+  background: var(--hairline); border: 1px solid var(--hairline);
+  margin-top: 64px;
+}
+@media (min-width: 900px) { .metrics-grid { grid-template-columns: repeat(4, 1fr); } }
+.metric {
+  background: var(--bg-elevated); padding: 40px 28px;
+  text-align: center;
+  transition: background 0.4s ease;
+}
+.metric:hover { background: var(--surface); }
+.metric .num {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 800;
+  color: var(--accent); line-height: 1; margin-bottom: 14px;
+}
+.metric .num .sym { font-size: 0.5em; color: var(--text); }
+.metric .desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+/* ============ EXPERTISE ============ */
+.exp-head { max-width: 640px; margin-bottom: 64px; }
+.exp-head h2 { font-size: clamp(1.9rem, 4.5vw, 3.4rem); font-weight: 700; }
+.exp-head h2 .accent { color: var(--accent); }
+.exp-head p { color: var(--muted); margin-top: 24px; }
+
+.exp-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+@media (min-width: 640px) { .exp-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .exp-grid { grid-template-columns: repeat(3, 1fr); } }
+.exp-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--hairline);
+  padding: 40px 32px;
+  border-radius: 3px;
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), border-color 0.4s ease;
+}
+.exp-card:hover { transform: translateY(-4px); border-color: rgba(0,229,160,0.4); }
+.exp-card .ico { margin-bottom: 24px; color: var(--muted); opacity: 0.75; }
+.exp-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; }
+.exp-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.55; }
+
+/* ============ TRAJETÓRIA ============ */
+.timeline-head { max-width: 640px; margin-bottom: 72px; }
+.timeline-head h2 { font-size: clamp(1.9rem, 4.5vw, 3.4rem); font-weight: 700; }
+.timeline-head h2 .accent { color: var(--accent); }
+.timeline-head p { color: var(--muted); margin-top: 24px; }
+
+.timeline { position: relative; }
+.timeline::before {
+  content: ''; position: absolute; left: 0; top: 8px; bottom: 8px;
+  width: 1px; background: var(--hairline);
+}
+@media (min-width: 768px) { .timeline::before { left: 200px; } }
+.tl-item {
+  position: relative; padding-left: 36px; padding-bottom: 56px;
+  display: grid; grid-template-columns: 1fr;
+}
+@media (min-width: 768px) {
+  .tl-item { grid-template-columns: 200px 1fr; padding-left: 0; gap: 56px; }
+}
+.tl-item::before {
+  content: ''; position: absolute; left: -4px; top: 6px;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--accent);
+}
+@media (min-width: 768px) { .tl-item::before { left: 196px; } }
+.tl-period {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+  color: var(--accent); letter-spacing: 0.04em; padding-top: 2px;
+}
+.tl-period .dur { display: block; color: var(--muted); font-size: 0.72rem; margin-top: 4px; }
+.tl-content { padding-left: 0; }
+@media (min-width: 768px) { .tl-content { padding-left: 16px; } }
+.tl-content h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 4px; }
+.tl-company { color: var(--accent-2); font-size: 0.85rem; margin-bottom: 16px; letter-spacing: 0.03em; }
+.tl-content ul { list-style: none; }
+.tl-content li {
+  color: var(--muted); font-size: 0.9rem; padding-left: 20px;
+  position: relative; margin-bottom: 8px; line-height: 1.55;
+}
+.tl-content li::before {
+  content: ''; position: absolute; left: 0; top: 10px;
+  width: 7px; height: 1px; background: var(--accent);
+}
+
+/* ============ FORMAÇÃO ============ */
+.edu { background: var(--bg-elevated); }
+.edu-grid { display: grid; grid-template-columns: 1fr; gap: 60px; }
+@media (min-width: 1024px) { .edu-grid { grid-template-columns: 1fr 1fr; gap: 80px; } }
+.edu-col h2 { font-size: clamp(1.6rem, 3.5vw, 2.6rem); font-weight: 700; margin-bottom: 40px; }
+.edu-col h2 .accent { color: var(--accent); }
+.edu-item {
+  padding: 24px 0; border-top: 1px solid var(--hairline);
+  transition: padding-left 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+.edu-item:hover { padding-left: 12px; }
+.edu-item h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.edu-item .inst { color: var(--muted); font-size: 0.85rem; }
+.edu-item .date { color: var(--accent); font-size: 0.74rem; margin-top: 6px; letter-spacing: 0.04em; }
+.cert-list { display: flex; flex-direction: column; gap: 14px; }
+.cert {
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 22px; background: var(--bg);
+  border: 1px solid var(--hairline); border-radius: 3px;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.cert:hover { border-color: rgba(0,229,160,0.4); transform: translateX(4px); }
+.cert .ico { color: var(--accent); flex-shrink: 0; }
+.cert span { font-size: 0.9rem; }
+.cert .badge {
+  margin-left: auto; font-size: 0.62rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--bg); background: var(--accent);
+  padding: 4px 10px; border-radius: 100px; font-weight: 500;
+}
+
+/* ============ CONTATO ============ */
+.contact { text-align: center; }
+.contact h2 {
+  font-size: clamp(2.2rem, 7vw, 5.5rem); font-weight: 800;
+  margin-bottom: 32px; line-height: 1;
+}
+.contact h2 .accent { color: var(--accent); }
+.contact p { color: var(--muted); max-width: 520px; margin: 0 auto 48px; }
+.contact-links {
+  display: flex; flex-direction: column; gap: 18px;
+  max-width: 520px; margin: 0 auto;
+}
+@media (min-width: 640px) { .contact-links { flex-direction: row; justify-content: center; flex-wrap: wrap; } }
+.c-link {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 28px; border: 1px solid var(--hairline); border-radius: 3px;
+  font-size: 0.88rem; transition: border-color 0.3s, color 0.3s, transform 0.3s;
+}
+.c-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+.c-link .ico { color: var(--accent); }
+
+/* ============ FOOTER ============ */
+footer {
+  border-top: 1px solid var(--hairline);
+  padding: 48px 0;
+}
+.footer-inner {
+  display: flex; flex-direction: column; gap: 20px;
+  align-items: center; text-align: center;
+}
+@media (min-width: 768px) { .footer-inner { flex-direction: row; justify-content: space-between; text-align: left; } }
+.footer-inner .logo { font-size: 1rem; }
+.footer-meta { font-size: 0.74rem; color: var(--muted); letter-spacing: 0.05em; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="wrap nav-inner">
+    <a href="#hero" class="logo"><span class="dot"></span>FERNANDO&nbsp;OLIVEIRA</a>
+    <div class="nav-links">
+      <a href="#about">Sobre</a>
+      <a href="#results">Resultados</a>
+      <a href="#expertise">Expertise</a>
+      <a href="#trajetoria">Trajetória</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">Sobre</a>
+  <a href="#results">Resultados</a>
+  <a href="#expertise">Expertise</a>
+  <a href="#trajetoria">Trajetória</a>
+  <a href="#contato">Contato</a>
+</div>
+
+<!-- HERO -->
+<header class="hero" id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <span class="hero-loc">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Curitiba, Paraná — Brasil
+        </span>
+        <span class="hero-role">Senior Supply Chain &amp; Operations Transformation Specialist</span>
+        <h1 class="hero-headline">
+          Transformo <span class="accent">operações</span> em <span class="light">vantagem</span> competitiva.
+        </h1>
+        <p>18+ anos liderando iniciativas de alta complexidade em supply chain, logística e excelência operacional — unindo estratégia, tecnologia e dados para escalar performance.</p>
+        <div class="hero-cta">
+          <a href="#contato" class="btn btn-primary">
+            Vamos conversar
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#trajetoria" class="btn btn-ghost">Ver trajetória</a>
+        </div>
+        <div class="hero-stats-row">
+          <div class="hero-stat"><div class="n">18<span>+</span></div><div class="l">Anos de experiência</div></div>
+          <div class="hero-stat"><div class="n">25<span>%</span></div><div class="l">Redução de custos</div></div>
+          <div class="hero-stat"><div class="n">98<span>%</span></div><div class="l">Acurácia de estoque</div></div>
+        </div>
+      </div>
+      <div></div>
+    </div>
+  </div>
+</header>
+
+<!-- SOBRE -->
+<section class="about" id="about">
+  <div class="wrap">
+    <span class="eyebrow">01 — Sobre</span>
+    <div class="about-grid">
+      <div>
+        <h2>Estratégia, tecnologia e dados a <span class="accent">serviço da operação</span>.</h2>
+      </div>
+      <div class="about-body">
+        <p>Sou <strong>Especialista Sênior em Supply Chain, Operações e Transformação Logística</strong>, com mais de 18 anos conduzindo iniciativas de alta complexidade em operações de grande escala — e-commerce, logística, distribuição, indústria e transporte.</p>
+        <p>Atuo na transformação de operações orientadas por dados, combinando <strong>estratégia, tecnologia, melhoria contínua e excelência operacional</strong> para aumentar eficiência, escalabilidade e performance. Conduzi projetos que reduziram custos em até 25%, elevaram a acurácia de estoque acima de 98% e estruturaram governança operacional com dashboards executivos em tempo real.</p>
+        <p>Minha formação é multidisciplinar: <strong>Engenharia de Dados, Data Science, Governança Corporativa e Gestão Tech-Driven de Negócios</strong> — uma base que conecta operações, tecnologia e dados para impulsionar crescimento sustentável.</p>
+        <div class="about-tags">
+          <span class="tag">Supply Chain</span>
+          <span class="tag">Operational Excellence</span>
+          <span class="tag">WMS / TMS / ERP</span>
+          <span class="tag">Lean Six Sigma BB</span>
+          <span class="tag">Data Analytics</span>
+          <span class="tag">Last Mile</span>
+          <span class="tag">Capacity Planning</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTADOS (PINNED) -->
+<section class="results" id="results">
+  <div class="results-pin">
+    <div class="wrap" style="width:100%">
+      <div class="results-head">
+        <span class="eyebrow" style="justify-content:center">02 — Impacto</span>
+        <h2>Resultados que <span class="accent">movem o negócio</span>.</h2>
+        <p>Números reais de projetos estratégicos conduzidos ao longo da minha trajetória em operações de alto volume.</p>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric reveal-metric">
+          <div class="num">-25<span class="sym">%</span></div>
+          <div class="desc">Redução de custos e gargalos operacionais via redesenho de fluxos</div>
+        </div>
+        <div class="metric reveal-metric">
+          <div class="num">+98<span class="sym">%</span></div>
+          <div class="desc">Acurácia de inventário com auditoria e controle de processos</div>
+        </div>
+        <div class="metric reveal-metric">
+          <div class="num">-60<span class="sym">%</span></div>
+          <div class="desc">Redução nos ciclos de análise com dashboards em tempo real</div>
+        </div>
+        <div class="metric reveal-metric">
+          <div class="num">500<span class="sym">+</span></div>
+          <div class="desc">Colaboradores e entregadores sob planejamento e alocação</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section class="expertise" id="expertise">
+  <div class="wrap">
+    <span class="eyebrow">03 — Expertise</span>
+    <div class="exp-head">
+      <h2>Onde eu <span class="accent">gero valor</span>.</h2>
+      <p>Competências aplicadas ponta a ponta, da estratégia à execução, sempre orientadas por dados e melhoria contínua.</p>
+    </div>
+    <div class="exp-grid">
+      <div class="exp-card">
+        <svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9h18M9 21V9M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        <h3>Supply Chain Management</h3>
+        <p>Planejamento de demanda, capacity planning e gestão de estoques em ambientes de +500 SKUs e múltiplos centros de distribuição.</p>
+      </div>
+      <div class="exp-card">
+        <svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        <h3>WMS · TMS · ERP</h3>
+        <p>Parametrização e integração de sistemas WMS, TMS e ERP (SAP e Protheus/TOTVS) para visibilidade e controle operacional end-to-end.</p>
+      </div>
+      <div class="exp-card">
+        <svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+        <h3>Logistics Transformation</h3>
+        <p>Otimização de redes logísticas, redesenho de malha, transportes e operações last mile — com ganhos de SLA e eficiência.</p>
+      </div>
+      <div class="exp-card">
+        <svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        <h3>Lean Six Sigma Black Belt</h3>
+        <p>Melhoria contínua e excelência operacional, atacando causa raiz para reduzir lead time, perdas e variabilidade de processos.</p>
+      </div>
+      <div class="exp-card">
+        <svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5M3 12a9 3 0 0 0 18 0"/></svg>
+        <h3>Data Analytics &amp; BI</h3>
+        <p>Estruturação de dashboards executivos, KPIs/KRIs e business intelligence para tomada de decisão tática e governança operacional.</p>
+      </div>
+      <div class="exp-card">
+        <svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <h3>Riscos &amp; Compliance</h3>
+        <p>Gestão de riscos operacionais, auditorias internas e governança corporativa, garantindo aderência a políticas e mitigação de vulnerabilidades.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAJETÓRIA -->
+<section class="trajetoria" id="trajetoria">
+  <div class="wrap">
+    <span class="eyebrow">04 — Trajetória</span>
+    <div class="timeline-head">
+      <h2>Uma carreira construída <span class="accent">na operação</span>.</h2>
+      <p>Da linha de produção à liderança de transformação logística — uma evolução consistente em operações de escala crescente.</p>
+    </div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-period">2026 — Atual<span class="dur">3 meses</span></div>
+        <div class="tl-content">
+          <h3>Especialista de Logística Freelancer</h3>
+          <div class="tl-company">Freelancer</div>
+          <ul>
+            <li>Consultoria em transformação logística e excelência operacional para projetos estratégicos</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-period">2024 — 2026<span class="dur">1 ano 8 meses</span></div>
+        <div class="tl-content">
+          <h3>Analista Sênior de Operações e Logística — Central Flow</h3>
+          <div class="tl-company">Mercado Livre</div>
+          <ul>
+            <li>Parametrização e otimização de WMS em ambiente de +500 SKUs e 4+ centros de distribuição</li>
+            <li>Redução de gargalos operacionais em ~25% via redesenho de fluxos de separação</li>
+            <li>Acurácia de previsão de demanda superior a 85%, suportando alocação de +500 colaboradores</li>
+            <li>Dashboards em tempo real para gestão de SLA, reduzindo ciclos de análise em ~60%</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-period">2023 — 2024<span class="dur">1 ano 5 meses</span></div>
+        <div class="tl-content">
+          <h3>Especialista de Logística e Supply Chain</h3>
+          <div class="tl-company">Grupo Delly's</div>
+          <ul>
+            <li>Otimização de transporte e redesenho de malha via TMS, com redução de custos em ~12%</li>
+            <li>Implantação de ERP multiembarcador (TOTVS/Protheus) com visibilidade ponta a ponta</li>
+            <li>Integração logística em processo de M&amp;A com zero impacto nas operações</li>
+            <li>Redução de prazos de entrega em ~15% com reestruturação de rotas</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-period">2021 — 2023<span class="dur">2 anos 3 meses</span></div>
+        <div class="tl-content">
+          <h3>Especialista de Operações e Logística</h3>
+          <div class="tl-company">Total Express</div>
+          <ul>
+            <li>Gestão de frota com +500 entregadores, com ganho de produtividade de ~14%</li>
+            <li>Redução de lead time logístico em ~10% via projetos de melhoria contínua</li>
+            <li>Gestão de logística reversa com conformidade superior a 98%</li>
+            <li>Controle e melhoria de processos de última milha (last mile)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-period">2016 — 2020<span class="dur">4 anos 5 meses</span></div>
+        <div class="tl-content">
+          <h3>Analista de Riscos e Operações</h3>
+          <div class="tl-company">Ambev</div>
+          <ul>
+            <li>Gestão de riscos operacionais e corporativos em Logística, Financeiro, Vendas e Compliance</li>
+            <li>Redução de perdas operacionais em ~8% via análise de causa raiz</li>
+            <li>Desenvolvimento e monitoramento de KPIs/KRIs para governança operacional</li>
+            <li>Condução de auditorias internas e disseminação de cultura de compliance</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-period">2013 — 2016<span class="dur">3 anos 6 meses</span></div>
+        <div class="tl-content">
+          <h3>Fundador e Gestor de Operações</h3>
+          <div class="tl-company">Prestativa Soluções Logísticas</div>
+          <ul>
+            <li>Fundação e gestão de empresa de soluções logísticas e transporte</li>
+            <li>Estruturação completa da operação: processos, equipes, custos e execução</li>
+            <li>Análise de viabilidade operacional e financeira de serviços</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-period">2008 — 2012<span class="dur">4 anos 3 meses</span></div>
+        <div class="tl-content">
+          <h3>Analista de Dados Logísticos</h3>
+          <div class="tl-company">BRF</div>
+          <ul>
+            <li>Bases analíticas integradas ao SAP para monitoramento de performance</li>
+            <li>Acompanhamento de +200 cargas diárias com visibilidade operacional</li>
+            <li>Redução de sinistros e ocorrências em ~12% via análise de dados</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-period">2001 — 2008<span class="dur">7+ anos</span></div>
+        <div class="tl-content">
+          <h3>Analista de Transporte · Produção e Qualidade</h3>
+          <div class="tl-company">Santo Anjo da Guarda · Realce · Metalúrgica Expoente</div>
+          <ul>
+            <li>Base sólida em controle de qualidade, ISO 9001 e padronização de processos</li>
+            <li>Gestão de estoque, controle de não conformidades e melhoria contínua</li>
+            <li>Atuação prática em processos industriais e operacionais</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FORMAÇÃO -->
+<section class="edu" id="formacao">
+  <div class="wrap">
+    <span class="eyebrow">05 — Formação &amp; Certificações</span>
+    <div class="edu-grid">
+      <div class="edu-col">
+        <h2>Formação <span class="accent">acadêmica</span></h2>
+        <div class="edu-item">
+          <h3>MBA em Gestão Tech-Driven de Negócios</h3>
+          <div class="inst">Universidade Tuiuti do Paraná — UTP</div>
+          <div class="date">2025 — 2026</div>
+        </div>
+        <div class="edu-item">
+          <h3>MBA em Governança Corporativa</h3>
+          <div class="inst">Faculdade de Minas</div>
+          <div class="date">2024 — 2025</div>
+        </div>
+        <div class="edu-item">
+          <h3>MBA em Planejamento e Estratégia</h3>
+          <div class="inst">Faculdade de Minas</div>
+          <div class="date">2024 — 2025</div>
+        </div>
+        <div class="edu-item">
+          <h3>Especialização em Engenharia de Dados</h3>
+          <div class="inst">UNOPAR — Universidade Norte do Paraná</div>
+          <div class="date">2023 — 2024</div>
+        </div>
+        <div class="edu-item">
+          <h3>MBA em Data Science</h3>
+          <div class="inst">UNOPAR — Universidade Norte do Paraná</div>
+          <div class="date">2023 — 2024</div>
+        </div>
+      </div>
+      <div class="edu-col">
+        <h2>Certificações &amp; <span class="accent">competências</span></h2>
+        <div class="cert-list">
+          <div class="cert">
+            <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+            <span>Lean Six Sigma Black Belt</span>
+            <span class="badge">Black Belt</span>
+          </div>
+          <div class="cert">
+            <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+            <span>Lean Six Sigma Yellow Belt</span>
+          </div>
+          <div class="cert">
+            <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 9h20"/></svg>
+            <span>Dell Certified Associate</span>
+          </div>
+          <div class="cert">
+            <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>
+            <span>Produtividade Inteligente</span>
+          </div>
+          <div class="cert">
+            <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/></svg>
+            <span>Armazenamento e Gestão de Informações</span>
+          </div>
+          <div class="cert">
+            <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span>Negociação e Influência</span>
+          </div>
+          <div class="cert" style="border-color:rgba(59,130,246,0.25)">
+            <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14M5 8a2 2 0 1 1 0-4h14a2 2 0 1 1 0 4M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8"/></svg>
+            <span>Idiomas: Inglês (Profissional) · Espanhol (Básico)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="contact" id="contato">
+  <div class="wrap">
+    <span class="eyebrow" style="justify-content:center">06 — Contato</span>
+    <h2>Vamos construir a próxima <span class="accent">transformação</span>.</h2>
+    <p>Aberto a oportunidades estratégicas em Supply Chain, Operações, Excelência Operacional e Transformação Logística. Fale comigo.</p>
+    <div class="contact-links">
+      <a href="mailto:fernando.dacruz@live.com" class="c-link">
+        <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+        fernando.dacruz@live.com
+      </a>
+      <a href="tel:+5541984212155" class="c-link">
+        <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +55 41 98421-2155
+      </a>
+      <a href="https://www.linkedin.com/in/fernandodacruzoliveira" target="_blank" rel="noopener" class="c-link">
+        <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap footer-inner">
+    <a href="#hero" class="logo"><span class="dot"></span>FERNANDO&nbsp;OLIVEIRA</a>
+    <div class="footer-meta">Senior Supply Chain &amp; Operations Specialist · Curitiba, PR</div>
+    <div class="footer-meta">© 2026 — Todos os direitos reservados</div>
+  </div>
+</footer>
+
+<script>
+const isMobile = window.matchMedia('(max-width: 768px)').matches || 'ontouchstart' in window;
+
+// Register ScrollTrigger
+if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+// Lenis (desktop only)
+if (typeof Lenis !== 'undefined' && !isMobile) {
+  try {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      syncTouch: false,
+    });
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+      gsap.ticker.lagSmoothing(0);
+    }
+  } catch (e) {}
+}
+
+// ===== NAV scroll state =====
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 40) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+// ===== Mobile menu =====
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+burger.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+});
+
+// ===== THREE.JS — Logistics Network Hero =====
+if (typeof THREE !== 'undefined') {
+  try {
+    const canvas = document.getElementById('hero-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 60;
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    // Build a network of nodes (supply chain mesh)
+    const nodeCount = isMobile ? 38 : 80;
+    const nodes = [];
+    const spread = 70;
+    const positions = [];
+
+    for (let i = 0; i < nodeCount; i++) {
+      const x = (Math.random() - 0.5) * spread;
+      const y = (Math.random() - 0.5) * spread * 0.7;
+      const z = (Math.random() - 0.5) * spread * 0.6;
+      positions.push(new THREE.Vector3(x, y, z));
+    }
+
+    // Node points
+    const nodeGeo = new THREE.BufferGeometry();
+    const nodePos = new Float32Array(nodeCount * 3);
+    positions.forEach((p, i) => {
+      nodePos[i*3] = p.x; nodePos[i*3+1] = p.y; nodePos[i*3+2] = p.z;
+    });
+    nodeGeo.setAttribute('position', new THREE.BufferAttribute(nodePos, 3));
+    const nodeMat = new THREE.PointsMaterial({ color: 0x00E5A0, size: 0.9, transparent: true, opacity: 0.9 });
+    const points = new THREE.Points(nodeGeo, nodeMat);
+    group.add(points);
+
+    // Connections (lines between nearby nodes)
+    const lineMat = new THREE.LineBasicMaterial({ color: 0x00E5A0, transparent: true, opacity: 0.12 });
+    const linePositions = [];
+    const maxDist = 18;
+    for (let i = 0; i < nodeCount; i++) {
+      for (let j = i + 1; j < nodeCount; j++) {
+        if (positions[i].distanceTo(positions[j]) < maxDist) {
+          linePositions.push(positions[i].x, positions[i].y, positions[i].z);
+          linePositions.push(positions[j].x, positions[j].y, positions[j].z);
+        }
+      }
+    }
+    const lineGeo = new THREE.BufferGeometry();
+    lineGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(linePositions), 3));
+    const lines = new THREE.LineSegments(lineGeo, lineMat);
+    group.add(lines);
+
+    // Accent blue secondary nodes (a few highlighted hubs)
+    const hubGeo = new THREE.BufferGeometry();
+    const hubCount = isMobile ? 5 : 9;
+    const hubPos = new Float32Array(hubCount * 3);
+    for (let i = 0; i < hubCount; i++) {
+      const p = positions[Math.floor(Math.random() * nodeCount)];
+      hubPos[i*3] = p.x; hubPos[i*3+1] = p.y; hubPos[i*3+2] = p.z;
+    }
+    hubGeo.setAttribute('position', new THREE.BufferAttribute(hubPos, 3));
+    const hubMat = new THREE.PointsMaterial({ color: 0x3B82F6, size: 2.2, transparent: true, opacity: 0.95 });
+    group.add(new THREE.Points(hubGeo, hubMat));
+
+    // Mouse parallax
+    let mouseX = 0, mouseY = 0;
+    if (!isMobile) {
+      window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth - 0.5);
+        mouseY = (e.clientY / window.innerHeight - 0.5);
+      });
+    }
+
+    let raf;
+    function animate() {
+      raf = requestAnimationFrame(animate);
+      group.rotation.y += 0.0015;
+      group.rotation.x += 0.0005;
+      group.rotation.y += (mouseX * 0.3 - group.rotation.y * 0) * 0.0;
+      group.position.x += ((mouseX * 8) - group.position.x) * 0.04;
+      group.position.y += ((-mouseY * 6) - group.position.y) * 0.04;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  } catch (e) {
+    // Three.js failed — hero gradient background remains
+  }
+}
+
+// ===== GSAP Animations =====
+if (typeof gsap !== 'undefined') {
+  // Hero headline kinetic (word by word, manual split to avoid SplitType dependency)
+  const headline = document.querySelector('.hero-headline');
+  if (headline) {
+    const words = headline.innerHTML.split(/(<[^>]+>[^<]*<\/[^>]+>|\s+)/).filter(w => w.trim());
+    // Simpler: animate the whole headline + sub elements
+    gsap.from('.hero-role', { opacity: 0, y: 20, duration: 0.8, delay: 0.1 });
+    gsap.from('.hero-loc', { opacity: 0, y: 20, duration: 0.8 });
+    gsap.from('.hero-headline', { opacity: 0, y: 40, duration: 1.1, delay: 0.2, ease: 'power3.out' });
+    gsap.from('.hero-text > p', { opacity: 0, y: 30, duration: 0.9, delay: 0.5 });
+    gsap.from('.hero-cta', { opacity: 0, y: 30, duration: 0.9, delay: 0.7 });
+    gsap.from('.hero-stat', { opacity: 0, y: 30, duration: 0.8, stagger: 0.12, delay: 0.9 });
+  }
+
+  if (typeof ScrollTrigger !== 'undefined') {
+    // Staggered reveals per section
+    gsap.utils.toArray('section').forEach(section => {
+      const items = section.querySelectorAll('.eyebrow, h2, .about-body p, .about-tags, .exp-card, .tl-item, .edu-item, .cert, .c-link, .contact > .wrap > p');
+      if (items.length) {
+        gsap.from(items, {
+          opacity: 0,
+          y: 40,
+          duration: 0.8,
+          stagger: 0.07,
+          ease: 'power2.out',
+          scrollTrigger: { trigger: section, start: 'top 78%', toggleActions: 'play none none none' }
+        });
+      }
+    });
+
+    // ===== PINNED Results section (cinematic) =====
+    if (!isMobile) {
+      const metrics = gsap.utils.toArray('.reveal-metric');
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.results',
+          start: 'top top',
+          end: '+=1600',
+          pin: '.results-pin',
+          scrub: 1,
+          anticipatePin: 1
+        }
+      });
+      tl.from('.results-head h2', { opacity: 0, y: 50, scale: 0.95 })
+        .from('.results-head p', { opacity: 0, y: 30 }, '-=0.3');
+      metrics.forEach((m) => {
+        tl.from(m, { opacity: 0, y: 60, scale: 0.85, duration: 1 }, '>-0.4');
+        tl.from(m.querySelector('.num'), { scale: 0.6, duration: 0.8 }, '<');
+      });
+    } else {
+      // Mobile: simple staggered reveal, no pin
+      gsap.from('.reveal-metric', {
+        opacity: 0, y: 40, duration: 0.7, stagger: 0.12,
+        scrollTrigger: { trigger: '.metrics-grid', start: 'top 85%' }
+      });
+    }
+  }
+}
+</script>
+
+</body>
+</html>
